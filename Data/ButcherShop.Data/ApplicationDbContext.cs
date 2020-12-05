@@ -26,6 +26,28 @@
 
         public DbSet<Setting> Settings { get; set; }
 
+        public DbSet<Ingredient> Ingredients { get; set; }
+
+        public DbSet<Order> Orders { get; set; }
+
+        public DbSet<OrderProduct> OrdersProducts { get; set; }
+
+        public DbSet<Product> Products { get; set; }
+
+        public DbSet<ProductImage> ProductImages { get; set; }
+
+        public DbSet<ProductCategory> ProductsCategories { get; set; }
+
+        public DbSet<Recipe> Recipes { get; set; }
+
+        public DbSet<RecipeImage> RecipeImages { get; set; }
+
+        public DbSet<RecipeProduct> RecipesProducts { get; set; }
+
+        public DbSet<RecipeIngredient> RecipesIngredients { get; set; }
+
+        public DbSet<Category> Categories { get; set; }
+
         public override int SaveChanges() => this.SaveChanges(true);
 
         public override int SaveChanges(bool acceptAllChangesOnSuccess)
@@ -49,6 +71,18 @@
         {
             // Needed for Identity models configuration
             base.OnModelCreating(builder);
+
+            builder.Entity<ProductCategory>()
+                .HasKey(x => new { x.CategoryId, x.ProductId });
+
+            builder.Entity<RecipeIngredient>()
+                .HasKey(x => new { x.RecipeId, x.IngredientId });
+
+            builder.Entity<RecipeProduct>()
+                .HasKey(x => new { x.RecipeId, x.ProductId });
+
+            builder.Entity<OrderProduct>()
+                .HasKey(x => new { x.OrderId, x.ProductId });
 
             this.ConfigureUserIdentityRelations(builder);
 
