@@ -18,7 +18,7 @@
         [Required]
         public string Name { get; set; }
 
-        public int? OldPricePerKg { get; set; }
+        public decimal? OldPricePerKg { get; set; }
 
         public decimal PricePerKg { get; set; }
 

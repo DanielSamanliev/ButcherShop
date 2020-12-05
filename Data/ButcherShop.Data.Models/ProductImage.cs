@@ -1,6 +1,7 @@
 ﻿namespace ButcherShop.Data.Models
 {
     using System;
+    using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
 
     using ButcherShop.Data.Common.Models;
@@ -12,6 +13,7 @@
             this.Id = "Product" + Guid.NewGuid().ToString();
         }
 
+        [Required]
         public string Extension { get; set; }
 
         [ForeignKey(nameof(Product))]

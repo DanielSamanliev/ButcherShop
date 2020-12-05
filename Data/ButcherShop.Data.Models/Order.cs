@@ -20,6 +20,8 @@
 
         public virtual ApplicationUser Customer { get; set; }
 
+        public bool CheckedOut { get; set; }
+
         public bool Completed { get; set; }
 
         public virtual ICollection<OrderProduct> Products { get; set; }
