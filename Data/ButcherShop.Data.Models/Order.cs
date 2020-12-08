@@ -4,8 +4,9 @@
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Linq;
-    using System.Threading.Tasks;
+
     using ButcherShop.Data.Common.Models;
+    using ButcherShop.Data.Models.Enums;
 
     public class Order : BaseDeletableModel<string>
     {
@@ -20,9 +21,7 @@
 
         public virtual ApplicationUser Customer { get; set; }
 
-        public bool CheckedOut { get; set; }
-
-        public bool Completed { get; set; }
+        public OrderStatus Status { get; set; }
 
         public virtual ICollection<OrderProduct> Products { get; set; }
 

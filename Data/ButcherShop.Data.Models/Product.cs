@@ -2,6 +2,7 @@
 {
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
 
     using ButcherShop.Data.Common.Models;
 
@@ -10,7 +11,6 @@
         public Product()
         {
             this.Recipes = new HashSet<RecipeProduct>();
-            this.Images = new HashSet<ProductImage>();
             this.Orders = new HashSet<OrderProduct>();
             this.Categories = new HashSet<ProductCategory>();
         }
@@ -22,12 +22,15 @@
 
         public decimal PricePerKg { get; set; }
 
+        [ForeignKey(nameof(Models.Image))]
+        public string ImageId { get; set; }
+
+        public virtual Image Image { get; set; }
+
         public virtual ICollection<ProductCategory> Categories { get; set; }
 
         public virtual ICollection<OrderProduct> Orders { get; set; }
 
         public virtual ICollection<RecipeProduct> Recipes { get; set; }
-
-        public virtual ICollection<ProductImage> Images { get; set; }
     }
 }

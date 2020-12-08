@@ -64,6 +64,11 @@
             // Application services
             services.AddTransient<IEmailSender, NullMessageSender>();
             services.AddTransient<ISettingsService, SettingsService>();
+            services.AddTransient<IGetInfoCountsService, GetInfoCountsService>();
+            services.AddTransient<IGetCategoriesService, GetCategoriesService>();
+            services.AddTransient<IProductService, ProductService>();
+            services.AddTransient<IGetProductsService, GetProductsService>();
+            services.AddTransient<IRecipeService, RecipeService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

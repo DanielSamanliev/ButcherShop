@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
 
     using ButcherShop.Data.Common.Models;
 
@@ -19,7 +20,10 @@
 
         public TimeSpan PrepTime { get; set; }
 
-        public virtual RecipeImage Image { get; set; }
+        [ForeignKey(nameof(Models.Image))]
+        public string ImageId { get; set; }
+
+        public virtual Image Image { get; set; }
 
         public string Instructions { get; set; }
 

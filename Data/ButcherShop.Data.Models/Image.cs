@@ -6,18 +6,17 @@
 
     using ButcherShop.Data.Common.Models;
 
-    public class RecipeImage : BaseDeletableModel<string>
+    public class Image : BaseDeletableModel<string>
     {
-        public RecipeImage()
+        public Image()
         {
-            this.Id = "Recipe" + Guid.NewGuid().ToString();
+            this.Id = Guid.NewGuid().ToString();
         }
 
         [Required]
         public string Extension { get; set; }
 
-        [ForeignKey(nameof(Recipe))]
-        public int RecipeId { get; set; }
+        public virtual Product Product { get; set; }
 
         public virtual Recipe Recipe { get; set; }
 

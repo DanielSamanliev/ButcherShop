@@ -34,19 +34,17 @@
 
         public DbSet<Product> Products { get; set; }
 
-        public DbSet<ProductImage> ProductImages { get; set; }
-
         public DbSet<ProductCategory> ProductsCategories { get; set; }
 
         public DbSet<Recipe> Recipes { get; set; }
-
-        public DbSet<RecipeImage> RecipeImages { get; set; }
 
         public DbSet<RecipeProduct> RecipesProducts { get; set; }
 
         public DbSet<RecipeIngredient> RecipesIngredients { get; set; }
 
         public DbSet<Category> Categories { get; set; }
+
+        public DbSet<Image> Images { get; set; }
 
         public override int SaveChanges() => this.SaveChanges(true);
 

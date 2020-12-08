@@ -2,15 +2,24 @@
 {
     using System.Diagnostics;
 
+    using ButcherShop.Services.Data;
     using ButcherShop.Web.ViewModels;
 
     using Microsoft.AspNetCore.Mvc;
 
     public class HomeController : BaseController
     {
+        private IGetInfoCountsService infoCountsService;
+
+        public HomeController(IGetInfoCountsService infoCountsService)
+        {
+            this.infoCountsService = infoCountsService;
+        }
+
         public IActionResult Index()
         {
-            return this.View();
+            var viewModel = this.infoCountsService.GetProductRecipeCategoryCounts();
+            return this.View(viewModel);
         }
 
         public IActionResult Privacy()

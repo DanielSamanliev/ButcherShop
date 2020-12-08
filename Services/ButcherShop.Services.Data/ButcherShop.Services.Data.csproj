@@ -21,6 +21,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Data\ButcherShop.Data.Common\ButcherShop.Data.Common.csproj" />
     <ProjectReference Include="..\..\Data\ButcherShop.Data.Models\ButcherShop.Data.Models.csproj" />
+    <ProjectReference Include="..\..\Web\ButcherShop.Web.ViewModels\ButcherShop.Web.ViewModels.csproj" />
     <ProjectReference Include="..\ButcherShop.Services.Mapping\ButcherShop.Services.Mapping.csproj" />
   </ItemGroup>
 

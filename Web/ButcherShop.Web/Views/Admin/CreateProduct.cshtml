@@ -1,0 +1,47 @@
+﻿@model ButcherShop.Web.ViewModels.Products.CreateProductInputModel
+@{ 
+    this.ViewData["Title"] = "Add new Product";
+    var categories = Model.Categories;
+}
+
+<h1>@this.ViewData["Title"]</h1>
+<form method="post" class="col-md-6 offset-3">
+    <div asp-validation-summary="All"></div>
+
+    <div class="form-group">
+        <label asp-for="Name"></label>
+        <input asp-for="Name" class="form-control" />
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="PricePerKg"></label>
+        <input asp-for="PricePerKg" class="form-control" />
+        <span asp-validation-for="PricePerKg" class="text-danger"></span>
+    </div>
+    <div id="CategoriesContainer">
+        <label asp-for="Categories"></label>
+        <select class="form-control" name="Categories[0]" required>
+            <option style="display:none"></option>
+            @foreach (string category in categories)
+             {
+                <option>@category</option>
+             }
+        </select>
+        <span asp-validation-for="Categories" class="text-danger"></span>
+    </div>
+    <a class="btn btn-success " onclick="AddMoreCategories()">+</a>
+    <button type="submit" class="btn btn-primary offset-11">Submit</button>
+</form>
+
+
+@section Scripts {
+    <script>
+        var categoryIndex = 1;
+
+        function AddMoreCategories() {
+            var select = "<select class='form-control' name='Categories[" + categoryIndex + "]' required><option style='display: none'></option>@foreach (string category in categories){<option>@category</option>}</select>";
+            $("#CategoriesContainer").append(select);
+            categoryIndex++;
+        }
+    </script>
+}

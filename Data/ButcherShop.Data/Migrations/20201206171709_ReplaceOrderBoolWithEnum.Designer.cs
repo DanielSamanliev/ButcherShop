@@ -4,14 +4,16 @@ using ButcherShop.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace ButcherShop.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20201206171709_ReplaceOrderBoolWithEnum")]
+    partial class ReplaceOrderBoolWithEnum
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -169,34 +171,6 @@ namespace ButcherShop.Data.Migrations
                     b.ToTable("Categories");
                 });
 
-            modelBuilder.Entity("ButcherShop.Data.Models.Image", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<DateTime>("CreatedOn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("DeletedOn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Extension")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTime?>("ModifiedOn")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("IsDeleted");
-
-                    b.ToTable("Images");
-                });
-
             modelBuilder.Entity("ButcherShop.Data.Models.Ingredient", b =>
                 {
                     b.Property<int>("Id")
@@ -290,9 +264,6 @@ namespace ButcherShop.Data.Migrations
                     b.Property<DateTime?>("DeletedOn")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("ImageId")
-                        .HasColumnType("nvarchar(450)");
-
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
@@ -310,10 +281,6 @@ namespace ButcherShop.Data.Migrations
                         .HasColumnType("decimal(18,2)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("ImageId")
-                        .IsUnique()
-                        .HasFilter("[ImageId] IS NOT NULL");
 
                     b.HasIndex("IsDeleted");
 
@@ -335,6 +302,39 @@ namespace ButcherShop.Data.Migrations
                     b.ToTable("ProductsCategories");
                 });
 
+            modelBuilder.Entity("ButcherShop.Data.Models.ProductImage", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Extension")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("ModifiedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("IsDeleted");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("ProductImages");
+                });
+
             modelBuilder.Entity("ButcherShop.Data.Models.Recipe", b =>
                 {
                     b.Property<int>("Id")
@@ -347,9 +347,6 @@ namespace ButcherShop.Data.Migrations
 
                     b.Property<DateTime?>("DeletedOn")
                         .HasColumnType("datetime2");
-
-                    b.Property<string>("ImageId")
-                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Instructions")
                         .HasColumnType("nvarchar(max)");
@@ -369,13 +366,43 @@ namespace ButcherShop.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ImageId")
-                        .IsUnique()
-                        .HasFilter("[ImageId] IS NOT NULL");
-
                     b.HasIndex("IsDeleted");
 
                     b.ToTable("Recipes");
+                });
+
+            modelBuilder.Entity("ButcherShop.Data.Models.RecipeImage", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Extension")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("ModifiedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("RecipeId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("IsDeleted");
+
+                    b.HasIndex("RecipeId")
+                        .IsUnique();
+
+                    b.ToTable("RecipeImages");
                 });
 
             modelBuilder.Entity("ButcherShop.Data.Models.RecipeIngredient", b =>
@@ -403,9 +430,6 @@ namespace ButcherShop.Data.Migrations
 
                     b.Property<int>("ProductId")
                         .HasColumnType("int");
-
-                    b.Property<string>("Quantity")
-                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("RecipeId", "ProductId");
 
@@ -572,13 +596,6 @@ namespace ButcherShop.Data.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("ButcherShop.Data.Models.Product", b =>
-                {
-                    b.HasOne("ButcherShop.Data.Models.Image", "Image")
-                        .WithOne("Product")
-                        .HasForeignKey("ButcherShop.Data.Models.Product", "ImageId");
-                });
-
             modelBuilder.Entity("ButcherShop.Data.Models.ProductCategory", b =>
                 {
                     b.HasOne("ButcherShop.Data.Models.Category", "Category")
@@ -594,11 +611,22 @@ namespace ButcherShop.Data.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("ButcherShop.Data.Models.Recipe", b =>
+            modelBuilder.Entity("ButcherShop.Data.Models.ProductImage", b =>
                 {
-                    b.HasOne("ButcherShop.Data.Models.Image", "Image")
-                        .WithOne("Recipe")
-                        .HasForeignKey("ButcherShop.Data.Models.Recipe", "ImageId");
+                    b.HasOne("ButcherShop.Data.Models.Product", "Product")
+                        .WithMany("Images")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("ButcherShop.Data.Models.RecipeImage", b =>
+                {
+                    b.HasOne("ButcherShop.Data.Models.Recipe", "Recipe")
+                        .WithOne("Image")
+                        .HasForeignKey("ButcherShop.Data.Models.RecipeImage", "RecipeId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("ButcherShop.Data.Models.RecipeIngredient", b =>
